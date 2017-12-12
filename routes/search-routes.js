@@ -51,11 +51,12 @@ router.get("/:id", function(req, res) {
     console.log(data.location);
     var location = data.location.split(",");
     //var queryURL = data.queryString;
-    
+
     var crimeLoc = {
         lat: parseFloat(location[0]),
         lon: parseFloat(location[1])
     };
+
     var responseData = {};
     //var hotelsData = {};
 
@@ -75,6 +76,7 @@ router.get("/:id", function(req, res) {
         if(err) {
           throw err;
           console.log("error getting crime data");
+          res.send("I cannot generate crime data");
         }
         console.log(crimes);
 
