@@ -97,7 +97,7 @@ router.get("/:id", function(req, res) {
         crimes = JSON.parse(body);
         //res.json(body.crimes);
         console.log(crimes.crimes);
-        res.json(crimes.crimes);
+        res.json(crimes);
       });
 
 
