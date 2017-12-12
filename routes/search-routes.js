@@ -74,6 +74,7 @@ router.get("/:id", function(req, res) {
      
       spotcrime.getCrimes(crimeLoc, .1, function(err, crimes){
         res.send("I am getting the crimes data");
+        console.log(crimeLoc);
         if(err) {
           throw err;
           console.log("error getting crime data");
