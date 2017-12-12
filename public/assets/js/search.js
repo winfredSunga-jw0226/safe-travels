@@ -38,7 +38,7 @@ function deleteSearches(btnid) {
 function reSearch(id) {
   $.get("/search/" + id, function(data) {
     console.log(data);
-    initMap(data.location, data.hotelsData.results, data.crimeData);
+    //initMap(data.location, data.hotelsData.results, data.crimeData);
   })
 }
 
