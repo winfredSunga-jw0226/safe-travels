@@ -88,7 +88,7 @@ router.get("/:id", function(req, res) {
         res.json(responseData);
       });
     })
-  })
+  // })
 })
 
 router.post("/:userid", function(request, response) {//this is Justin's testing of google APIs
