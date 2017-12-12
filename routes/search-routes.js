@@ -50,18 +50,24 @@ router.get("/:id", function(req, res) {
   db.Search.findById(req.params.id).then(function(data) {
     console.log(data.location);
     var location = data.location.split(",");
-    var queryURL = data.queryString;
-    var responseData = {};
-    var hotelsData = {};
-    client.get(queryURL, function(data) {
-      var responseData = {
-        hotelsData: data,
-      }
-
-      var crimeLoc = {
+    //var queryURL = data.queryString;
+    
+    var crimeLoc = {
         lat: parseFloat(location[0]),
         lon: parseFloat(location[1])
-      }
+    };
+    var responseData = {};
+    //var hotelsData = {};
+
+    // client.get(queryURL, function(data) {
+    //   var responseData = {
+    //     hotelsData: data,
+    //   }
+
+      // var crimeLoc = {
+      //   lat: parseFloat(location[0]),
+      //   lon: parseFloat(location[1])
+      // }
 
       console.log(crimeLoc);
      
@@ -73,10 +79,10 @@ router.get("/:id", function(req, res) {
         console.log(crimes);
 
         responseData.crimeData = crimes;
-        responseData.location = {
-          lat: crimeLoc.lat,
-          lng: crimeLoc.lon
-        }
+        // responseData.location = {
+        //   lat: crimeLoc.lat,
+        //   lng: crimeLoc.lon
+        // }
         res.json(responseData);
       });
     })
