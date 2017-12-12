@@ -62,11 +62,14 @@ router.get("/:id", function(req, res) {
         lon: parseFloat(location[1])
       }
 
+      console.log(crimeLoc);
+     
       spotcrime.getCrimes(crimeLoc, .1, function(err, crimes){
         if(err) {
           throw err;
           console.log("error getting crime data");
         }
+        console.log(crimes);
         responseData.crimeData = crimes;
         responseData.location = {
           lat: crimeLoc.lat,
