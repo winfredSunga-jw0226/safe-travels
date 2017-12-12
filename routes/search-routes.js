@@ -53,11 +53,10 @@ router.get("/:id", function(req, res) {
     var queryURL = data.queryString;
     var responseData = {};
     var hotelsData = {};
-    // client.get(queryURL, function(data) {
-    //   var responseData = {
-    //     hotelsData: data,
-    //   }
-    var responseData = {};
+    client.get(queryURL, function(data) {
+      var responseData = {
+        hotelsData: data,
+      }
 
       var crimeLoc = {
         lat: parseFloat(location[0]),
