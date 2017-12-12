@@ -78,10 +78,10 @@ router.get("/:id", function(req, res) {
       //   lat: parseFloat(location[0]),
       //   lon: parseFloat(location[1])
       // }
-
+      console.log("-------------------------------------------------");
       console.log(crimeLoc);
 
-      var baseUrl = "https://api.spotcrime.com/crimes.json";
+      var baseUrl = "http://api.spotcrime.com/crimes.json";
       var key = "privatekeyforspotcrimepublicusers-commercialuse-877.410.1607";
       var radius = '0.1';
 
