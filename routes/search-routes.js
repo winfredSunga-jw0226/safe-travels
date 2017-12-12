@@ -52,11 +52,11 @@ router.get("/:id", function(req, res) {
     var location = data.location.split(",");
     var queryURL = data.queryString;
     var responseData = {};
-    //var hotelsData = {};
-    // client.get(queryURL, function(data) {
-    //   var responseData = {
-    //     hotelsData: data,
-    //   }
+    var hotelsData = {};
+    client.get(queryURL, function(data) {
+      var responseData = {
+        hotelsData: data,
+      }
 
       var crimeLoc = {
         lat: parseFloat(location[0]),
@@ -73,10 +73,10 @@ router.get("/:id", function(req, res) {
         console.log(crimes);
 
         responseData.crimeData = crimes;
-        // responseData.location = {
-        //   lat: crimeLoc.lat,
-        //   lng: crimeLoc.lon
-        // }
+        responseData.location = {
+          lat: crimeLoc.lat,
+          lng: crimeLoc.lon
+        }
         res.json(responseData);
       });
     })
