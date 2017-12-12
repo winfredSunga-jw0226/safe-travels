@@ -3,6 +3,14 @@ var express = require("express");
 var http = require("http");
 var Client = require('node-rest-client').Client;
 var spotcrime = require('spotcrime');
+var request = require('request');
+var bodyParser = require("body-parser");
+
+var app = express();
+
+//configure body parser for AJAX requests
+app.use(bodyParser.urlencoded({ extended : false }));
+app.use(bodyParser.json());
  
 var client = new Client();
 
@@ -58,6 +66,7 @@ router.get("/:id", function(req, res) {
     };
 
     var responseData = {};
+    var crimes = {};
     //var hotelsData = {};
 
     // client.get(queryURL, function(data) {
@@ -71,27 +80,47 @@ router.get("/:id", function(req, res) {
       // }
 
       console.log(crimeLoc);
-     
-      spotcrime.getCrimes(crimeLoc, .1, function(err, crimes){
-        res.send("I am getting the crimes data");
-        console.log(crimeLoc);
-        if(err) {
-          throw err;
-          console.log("error getting crime data");
-          res.send("I cannot generate crime data");
-        }
-        console.log(crimes);
 
-        responseData.crimeData = crimes;
-        // responseData.location = {
-        //   lat: crimeLoc.lat,
-        //   lng: crimeLoc.lon
-        // }
-        res.json(responseData);
+      var baseUrl = "https://api.spotcrime.com/crimes.json";
+      var key = "privatekeyforspotcrimepublicusers-commercialuse-877.410.1607";
+      var radius = '0.1';
+
+      var queryUrl = baseUrl + '?lat=' + crimeLoc.lat + '&lon=' + crimeLoc.lon + '&key=' + key + '&radius=' + radius; 
+
+      //https://api.spotcrime.com/crimes.json?lat=33.39657&lon=-112.03422&key=privatekeyforspotcrimepublicusers-commercialuse-877.410.1607&radius=0.1
+     
+      request(queryUrl, function(err, response, body) {
+        if (err) {
+          throw err
+        }
+        //JSON.parse(body);
+        crimes = JSON.parse(body);
+        //res.json(body.crimes);
+        console.log(crimes.crimes);
+        res.json(crimes.crimes);
       });
-    })
+
+
+      // spotcrime.getCrimes(crimeLoc, .1, function(err, crimes){
+      //   res.send("I am getting the crimes data");
+      //   console.log(crimeLoc);
+      //   if(err) {
+      //     throw err;
+      //     console.log("error getting crime data");
+      //     res.send("I cannot generate crime data");
+      //   }
+      //   console.log(crimes);
+
+      //   responseData.crimeData = crimes;
+      //   // responseData.location = {
+      //   //   lat: crimeLoc.lat,
+      //   //   lng: crimeLoc.lon
+      //   // }
+      //   res.json(responseData);
+    });
+  })
   // })
-})
+//})
 
 router.post("/:userid", function(request, response) {//this is Justin's testing of google APIs
   console.log(request.body);
